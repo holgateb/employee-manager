@@ -1,3 +1,6 @@
+const mysql2 = require('mysql2');
+const utils = require('util');
+const inquirer = require('inquirer');
 
 //View all departments
 //SELECT * FROM department
@@ -19,6 +22,7 @@
         //THEN ask the user what they want to do next
 
 //Create a new role
+function createRole () {
 
 //GET the existing departments from the 'deparment' table
 
@@ -29,7 +33,36 @@
         //VALUES ("Manager", "120000, 1")
 
             //THEN ask the user what they want to do next
+        }
 
+const createPost = async () => {
+    const users = await db.query("SELECT * FROM users");
+
+    const userChoices = users.map( user => {
+        name: user.username,
+        value: user.id
+    }) };
+
+    const answers = inquirer.prompt ([
+        {
+            message: "What is the title of the post?",
+            name: "title",
+            type: "input"
+        },
+        {
+            message: "What is the content of the post?",
+            name: "content",
+            type: "input"
+        },
+        {
+            message: "What is the author of the post?",
+            name: "title",
+            type: "list"
+            choices: userChoices
+        }
+    ]);
+
+createPost();
 
 
 // GIVEN a command-line application that accepts user input
