@@ -1,5 +1,3 @@
-const mysql2 = require('mysql2');
-const utils = require('util');
 const inquirer = require('inquirer');
 
 //View all departments
@@ -57,7 +55,7 @@ const createPost = async () => {
         {
             message: "What is the author of the post?",
             name: "title",
-            type: "list"
+            type: "list",
             choices: userChoices
         }
     ]);
