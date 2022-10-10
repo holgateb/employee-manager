@@ -97,8 +97,10 @@ function start() {
           viewAllEmployees();
           break;
         case "Add a department":
+          addDepartment();
           break;
         case "Add a role":
+          addRole()
           break;
         case "Add an employee":
           break;
@@ -133,6 +135,62 @@ function viewAllEmployees() {
       console.table(data);
     })
     .then(() => start());
+}
+
+function addDepartment() {
+  inquirer
+    .prompt({
+      name: "name",
+      type: "input",
+      message: "Which department would you like to add?",
+    })
+    .then((response) => db.insertDepartment(response).then(() => start()));
+}
+
+function addRole() {
+  db.findAllDepartments().then(([data]) => {
+    const departArray = data.map(({ id, name }) => ({
+      name: name,
+      value: id,
+    }));
+
+    inquirer.prompt([
+      {
+        name: "title",
+        type: "input",
+        message: "What is the title of the role?",
+      },
+      {
+        name: "salary",
+        type: "input",
+        message: "What is the salary of this role?",
+      },
+      {
+        name: "department_id",
+        type: "list",
+        message: "Which department is the role in?",
+        choices: departArray
+      },
+    ]).then((response) => db.insertRole(response).then(() => start()));
+  });
+}
+
+function addEmployee () {
+  db.findAllEmployees().then(([data]) => {
+    const empArray = data.map(({first_name, last_name, id})=>({
+      name: `${first_name} ${last_name}`,
+      value: id
+    }));
+
+    db.findAllRoles().then(([data]) => {
+      
+    })
+
+  })
+}
+
+function updateEmployee () {
+
 }
 
 // WHEN I choose to view all departments

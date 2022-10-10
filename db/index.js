@@ -23,17 +23,17 @@ class Query {
         return this.db.promise().query('SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name, role.salary, CONCAT (manager.first_name, " ", manager.last_name) AS fullname from employee JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id JOIN employee AS manager ON manager.id = employee.manager_id')
     }
 
-    insertDepartment(){
-        return this.db.promise().query('INSERT')
+    insertDepartment(department){
+        return this.db.promise().query('INSERT INTO department SET ?', department)
     }
     
-    insertRole(){
-        return this.db.promise().query('')
+    insertRole(role){
+        return this.db.promise().query('INSERT INTO role SET ?',role)
     }
 
     
-    insertEmployee(){
-        return this.db.promise().query('')
+    insertEmployee(employee){
+        return this.db.promise().query('INSERT INTO employee SET ?',employee)
     }
 
     
