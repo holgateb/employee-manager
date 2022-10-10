@@ -183,8 +183,10 @@ function addEmployee () {
     }));
 
     db.findAllRoles().then(([data]) => {
-      
-    })
+      const roleArray = data.map(({title, salary, id})=>({
+        name: `${title}`,
+      })
+    )})
 
   })
 }
